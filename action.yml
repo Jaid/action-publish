@@ -1,14 +1,9 @@
-name: Install Node dependencies
-description: GitHub Action for installing dependencies from package.json after checkout.
+name: Publish Node package
+description: GitHub Action that publishes compiled code to npm and similar package registries.
 author: Jaid
-inputs:
-  nodeEnv:
-    default: development
-    description: NODE_ENV setting for installing execution (affects the amount of dependencies installed, but I would recommend keeping development in any case)
-    required: true
 runs:
   using: node12
   main: build/index.js
 branding:
-  icon: download
-  color: green
+  icon: box
+  color: blue
