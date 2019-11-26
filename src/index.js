@@ -1,4 +1,4 @@
-import {context} from "@actions/core"
+import {context} from "@actions/github"
 import {exec} from "@actions/exec"
 
 async function main() {
