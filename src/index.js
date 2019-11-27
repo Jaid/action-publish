@@ -8,7 +8,7 @@ async function main() {
     return
   }
   console.log(`Tag: ${tag}`)
-  await exec("echo", ["Hello2"])
+  await exec("echo", ["Hello3"])
 }
 
 main()
