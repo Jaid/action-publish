@@ -4,6 +4,8 @@ import {exec} from "@actions/exec"
 import getActionTag from "lib/getActionTag"
 import {getInput, group} from "@actions/core"
 import fsp from "@absolunet/fsp"
+import zahl from "zahl"
+import chalk from "chalk"
 
 async function main() {
   const tag = getActionTag()
@@ -35,11 +37,13 @@ async function main() {
       id: "github",
     },
     {
-      title: "npmjs.org",
+      title: "npm Inc",
       id: "npm",
     },
   ]
   const publishDirectory = path.resolve(getInput("publishDirectory", {required: true}))
+  const publishDirectoryEntries = await fsp.scandir(publishDirectory, "file", true)
+  console.log(`Publish directory ${chalk.yellow(publishDirectory)} has ${zahl(publishDirectoryEntries, "file")}`)
   for (const registry of registries) {
     group(`Registry: ${registry.title}`, async () => {
       const token = getInput(`${registry.id}Token`)

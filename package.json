@@ -10,8 +10,10 @@
     "@actions/github": "^1.1.0",
     "@actions/io": "^1.0.1",
     "@babel/runtime": "^7.7.4",
+    "chalk": "^3.0.0",
     "guess-package-manager": "^1.1.2",
-    "has-content": "^1.1.0"
+    "has-content": "^1.1.0",
+    "zahl": "^2.0.1"
   },
   "devDependencies": {
     "acorn": "^7.1.0",
