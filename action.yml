@@ -6,14 +6,24 @@ runs:
   main: build/index.js
 inputs:
   npmToken:
-    description: Token for authorizing "npm publish" execution
+    description: Token for authorizing "npm publish" execution for npm registry
   npmRegistry:
     description: Registry host for npm
     default: registry.npmjs.org
     required: true
   npmrcFile:
-    description: File path to npmrc, relative to repository
+    description: File path to npmrc (relative to repository)
     default: .npmrc
+    required: true
+  publishDirectory:
+    description: Directory with package contents (relative to repository)
+    default: "."
+    required: true
+  githubToken:
+    description: Token for authorizing "npm publish" execution for GitHub Packages registry
+  githubRegistry:
+    description: Registry host for GitHub Packages
+    default: npm.pkg.github.com
     required: true
 branding:
   icon: box

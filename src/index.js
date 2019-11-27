@@ -2,7 +2,7 @@ import path from "path"
 
 import {exec} from "@actions/exec"
 import getActionTag from "lib/getActionTag"
-import {getInput} from "@actions/core"
+import {getInput, group} from "@actions/core"
 import fsp from "@absolunet/fsp"
 
 async function main() {
@@ -28,13 +28,32 @@ async function main() {
     console.log("package.json[private] is true, skipping")
     return
   }
-  const npmToken = getInput("npmToken")
-  if (npmToken) {
-    const npmrcFileName = getInput("npmrcFile", {required: true})
-    const registryHost = getInput("npmRegistry", {required: true})
-    console.log(`Writing and registry host and npm token to ${npmrcFileName}`)
-    await fsp.outputFile(npmrcFileName, `//${registryHost}/:_authToken=${npmToken}`)
-    await exec("npm", ["publish"])
+  const npmrcFileName = getInput("npmrcFile", {required: true})
+  const registries = [
+    {
+      title: "GitHub Packages",
+      id: "github",
+    },
+    {
+      title: "npmjs.org",
+      id: "npm",
+    },
+  ]
+  const publishDirectory = path.resolve(getInput("publishDirectory", {required: true}))
+  for (const registry of registries) {
+    group(`Registry: ${registry.title}`, async () => {
+      const token = getInput(`${registry.id}Token`)
+      if (!token) {
+        console.log("No token given, skipping")
+        return
+      }
+      console.log(`Token given! (Length: ${token.length})`)
+      const host = getInput(`${registry.id}Registry`, {required: true})
+      console.log(`Registry host: ${host}`)
+      console.log(`Writing and registry host and npm token to ${npmrcFileName}`)
+      await fsp.outputFile(npmrcFileName, `//${host}/:_authToken=${token}`)
+      await exec("npm", ["publish", publishDirectory])
+    })
   }
 }
 
