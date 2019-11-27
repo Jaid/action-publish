@@ -4,6 +4,17 @@ author: Jaid
 runs:
   using: node12
   main: build/index.js
+inputs:
+  npmToken:
+    description: Token for authorizing "npm publish" execution
+  npmRegistry:
+    description: Registry host for npm
+    default: registry.npmjs.org
+    required: true
+  npmrcFile:
+    description: File path to npmrc, relative to repository
+    default: .npmrc
+    required: true
 branding:
   icon: box
   color: blue
