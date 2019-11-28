@@ -12,8 +12,10 @@ export default async function ({registry, publishDirectory, dry, npmrcFileName})
   }
   console.log(`Token given! (Length: ${token.length})`)
   const host = getInput(`${id}Registry`, {required: true})
-  console.log(`${chalk.yellow(npmrcFileName)} content: ${chalk.blueBright(`//${host}/:_authToken=TOKEN`)}`)
-  await fsp.outputFile(npmrcFileName, `//${host}/:_authToken=${token}`)
+  const rc = `registry=https://${host}\n//${host}/:_authToken=${token}`
+  console.log(`${chalk.yellow(npmrcFileName)} content:`)
+  console.log(chalk.bgBlue(rc))
+  await fsp.outputFile(npmrcFileName, rc)
   const args = ["publish", publishDirectory]
   if (dry) {
     args.push("--dry-run")
