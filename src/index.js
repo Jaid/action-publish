@@ -26,13 +26,15 @@ async function main() {
     }
     await exec("npm", ["run", npmPrepareScript], execOptions)
   }
-  const pkgFile = path.resolve("package.json")
+  const publishDirectory = path.resolve(getInput("publishDirectory", {required: true}))
+  const pkgFile = path.resolve(publishDirectory, "package.json")
   const pkgFileExists = await fsp.pathExists(pkgFile)
   if (!pkgFileExists) {
-    console.log("package.json does not exist, skipping")
+    console.log(`${chalk.yellow(pkgFile)} does not exist, skipping`)
     return
   }
   const pkg = await fsp.readJson5(pkgFile)
+  console.log(`Loaded pkg with ${zahl(Object.keys(pkg), "entry")} from ${chalk.yellow(pkgFile)}`)
   const packageName = pkg?.name
   if (!packageName) {
     console.log("package.json[name] is not set, skipping")
@@ -53,7 +55,6 @@ async function main() {
       id: "npm",
     },
   ]
-  const publishDirectory = path.resolve(getInput("publishDirectory", {required: true}))
   const publishDirectoryEntries = await fsp.scandir(publishDirectory, "file", true)
   console.log(`Publish directory ${chalk.yellow(publishDirectory)} has ${zahl(publishDirectoryEntries, "file")}`)
   for (const registry of registries) {
