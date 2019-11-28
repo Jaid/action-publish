@@ -3,6 +3,7 @@ import path from "path"
 import {exec} from "@actions/exec"
 import getActionTag from "lib/getActionTag"
 import {getInput, startGroup, endGroup, setFailed} from "@actions/core"
+import {context} from "@actions/github"
 import fsp from "@absolunet/fsp"
 import zahl from "zahl"
 import chalk from "chalk"
@@ -63,10 +64,15 @@ async function main() {
     {
       title: "GitHub Packages",
       id: "github",
+      pkg: {
+        ...pkg,
+        name: `@${context.payload.repository.full_name}`,
+      },
     },
     {
       title: "npm Inc",
       id: "npm",
+      pkg: {...pkg},
     },
   ]
   const publishDirectoryEntries = await fsp.scandir(publishDirectory, "file", true)
@@ -82,6 +88,7 @@ async function main() {
       publishDirectory,
       npmrcFileName,
       dry,
+      pkgFile,
     })
     endGroup()
   }

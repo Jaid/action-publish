@@ -3,7 +3,7 @@ import {getInput} from "@actions/core"
 import fsp from "@absolunet/fsp"
 import chalk from "chalk"
 
-export default async function ({registry, publishDirectory, dry, npmrcFileName}) {
+export default async function ({registry, publishDirectory, dry, npmrcFileName, pkgFile}) {
   const {id} = registry
   const token = getInput(`${id}Token`)
   if (!token) {
@@ -15,6 +15,7 @@ export default async function ({registry, publishDirectory, dry, npmrcFileName})
   const rc = `registry=https://${host}\n//${host}/:_authToken=${token}`
   console.log(`${chalk.yellow(npmrcFileName)} content:`)
   console.log(chalk.bgBlue(rc))
+  await fsp.outputFile(pkgFile, JSON.stringify(registry.pkg))
   await fsp.outputFile(npmrcFileName, rc)
   const args = ["publish", publishDirectory]
   if (dry) {
