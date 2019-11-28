@@ -13,6 +13,8 @@ inputs:
     description: Directory with package contents (relative to repository)
     default: "."
     required: true
+  npmPrepareScript:
+    description: Name of an npm script entry (for example "build" to run package.json[build]) that will be executed before publishing
   ### npm
   npmToken:
     description: Token for authorizing "npm publish" execution for npm registry

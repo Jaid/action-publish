@@ -14,6 +14,15 @@ async function main() {
     return
   }
   console.log(`Tag: ${tag}`)
+  const npmPrepareScript = getInput("npmPrepareScript")
+  if (npmPrepareScript) {
+    const execOptions = {}
+    const githubToken = getInput("githubToken")
+    if (githubToken) {
+      execOptions.env = {GITHUB_TOKEN: githubToken}
+    }
+    await exec("npm", ["run", npmPrepareScript], execOptions)
+  }
   const pkgFile = path.resolve("package.json")
   const pkgFileExists = await fsp.pathExists(pkgFile)
   if (!pkgFileExists) {
