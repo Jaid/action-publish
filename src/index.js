@@ -7,6 +7,9 @@ import fsp from "@absolunet/fsp"
 import zahl from "zahl"
 import chalk from "chalk"
 
+// GitHub Actions CI supports color, chalk just does not know that
+chalk.level = chalk.Level.Ansi256
+
 async function main() {
   const tag = getActionTag()
   if (!tag) {
@@ -27,6 +30,11 @@ async function main() {
     await exec("npm", ["run", npmPrepareScript], execOptions)
   }
   const publishDirectory = path.resolve(getInput("publishDirectory", {required: true}))
+  const publishDirectoryExists = await fsp.pathExists(publishDirectory)
+  if (!publishDirectoryExists) {
+    console.log(`${chalk.yellow(publishDirectory)} does not exist, skipping`)
+    return
+  }
   const pkgFile = path.resolve(publishDirectory, "package.json")
   const pkgFileExists = await fsp.pathExists(pkgFile)
   if (!pkgFileExists) {
