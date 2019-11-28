@@ -2,11 +2,12 @@ import path from "path"
 
 import {exec} from "@actions/exec"
 import getActionTag from "lib/getActionTag"
-import {getInput, group, setFailed} from "@actions/core"
+import {getInput, startGroup, endGroup, setFailed} from "@actions/core"
 import fsp from "@absolunet/fsp"
 import zahl from "zahl"
 import chalk from "chalk"
 
+import publish from "./publish"
 import getBooleanInput from "./lib/getBooleanInput"
 
 // GitHub Actions CI supports color, chalk just does not know that
@@ -70,32 +71,23 @@ async function main() {
   ]
   const publishDirectoryEntries = await fsp.scandir(publishDirectory, "file", true)
   console.log(`Publish directory ${chalk.yellow(publishDirectory)} has ${zahl(publishDirectoryEntries, "file")}`)
-  const dry = getBooleanInput("dry")
+  const dry = getBooleanInput("dry", {required: true})
   if (dry) {
     console.log("Dry run is activated")
   }
   for (const registry of registries) {
-    group(`Registry: ${registry.title}`, async () => {
-      const token = getInput(`${registry.id}Token`)
-      if (!token) {
-        console.log("No token given, skipping")
-        return
-      }
-      console.log(`Token given! (Length: ${token.length})`)
-      const host = getInput(`${registry.id}Registry`, {required: true})
-      console.log(`Registry host: ${host}`)
-      console.log(`Writing and registry host and npm token to ${npmrcFileName}`)
-      await fsp.outputFile(npmrcFileName, `//${host}/:_authToken=${token}`)
-      const args = ["publish", publishDirectory]
-      if (dry) {
-        args.push("--dry-run")
-      }
-      await exec("npm", args)
+    startGroup(`Registry: ${registry.title}`)
+    await publish({
+      registry,
+      publishDirectory,
+      npmrcFileName,
+      dry,
     })
+    endGroup()
   }
 }
 
 main().catch(error => {
   console.error(error)
-  setFailed("jaid/action-uptodater threw an Error")
+  setFailed("jaid/action-publish threw an Error")
 })
