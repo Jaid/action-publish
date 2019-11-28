@@ -2,7 +2,7 @@ import path from "path"
 
 import {exec} from "@actions/exec"
 import getActionTag from "lib/getActionTag"
-import {getInput, group} from "@actions/core"
+import {getInput, group, setFailed} from "@actions/core"
 import fsp from "@absolunet/fsp"
 import zahl from "zahl"
 import chalk from "chalk"
@@ -92,4 +92,7 @@ async function main() {
   }
 }
 
-main()
+main().catch(error => {
+  console.error(error)
+  setFailed("jaid/action-uptodater threw an Error")
+})
