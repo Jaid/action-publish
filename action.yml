@@ -15,6 +15,10 @@ inputs:
     required: true
   npmPrepareScript:
     description: Name of an npm script entry (for example "build" to run package.json[build]) that will be executed before publishing
+  dry:
+    description: If true, everything is executed (including npm publish), but actual publishing does not happen
+    default: false
+    required: true
   ### npm
   npmToken:
     description: Token for authorizing "npm publish" execution for npm registry
