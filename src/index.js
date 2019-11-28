@@ -71,6 +71,9 @@ async function main() {
   const publishDirectoryEntries = await fsp.scandir(publishDirectory, "file", true)
   console.log(`Publish directory ${chalk.yellow(publishDirectory)} has ${zahl(publishDirectoryEntries, "file")}`)
   const dry = getBooleanInput("dry")
+  if (dry) {
+    console.log("Dry run is activated")
+  }
   for (const registry of registries) {
     group(`Registry: ${registry.title}`, async () => {
       const token = getInput(`${registry.id}Token`)
