@@ -16,6 +16,9 @@ async function main() {
   console.log(`Tag: ${tag}`)
   const npmPrepareScript = getInput("npmPrepareScript")
   if (npmPrepareScript) {
+    /**
+     * @type {import("@actions/exec").ExecOptions}
+     */
     const execOptions = {}
     const githubToken = getInput("githubToken")
     if (githubToken) {
