@@ -7,6 +7,8 @@ import fsp from "@absolunet/fsp"
 import zahl from "zahl"
 import chalk from "chalk"
 
+import getBooleanInput from "./lib/getBooleanInput"
+
 // GitHub Actions CI supports color, chalk just does not know that
 chalk.level = chalk.Level.Ansi256
 
@@ -65,6 +67,7 @@ async function main() {
   ]
   const publishDirectoryEntries = await fsp.scandir(publishDirectory, "file", true)
   console.log(`Publish directory ${chalk.yellow(publishDirectory)} has ${zahl(publishDirectoryEntries, "file")}`)
+  const dry = getBooleanInput("dry")
   for (const registry of registries) {
     group(`Registry: ${registry.title}`, async () => {
       const token = getInput(`${registry.id}Token`)
@@ -77,7 +80,11 @@ async function main() {
       console.log(`Registry host: ${host}`)
       console.log(`Writing and registry host and npm token to ${npmrcFileName}`)
       await fsp.outputFile(npmrcFileName, `//${host}/:_authToken=${token}`)
-      await exec("npm", ["publish", publishDirectory])
+      const args = ["publish", publishDirectory]
+      if (dry) {
+        args.push("--dry-run")
+      }
+      await exec("npm", args)
     })
   }
 }
