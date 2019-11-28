@@ -27,7 +27,10 @@ async function main() {
     const execOptions = {}
     const githubToken = getInput("githubToken")
     if (githubToken) {
-      execOptions.env = {GITHUB_TOKEN: githubToken}
+      execOptions.env = {
+        ...process.env,
+        GITHUB_TOKEN: githubToken,
+      }
     }
     await exec("npm", ["run", npmPrepareScript], execOptions)
   }
