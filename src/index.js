@@ -7,9 +7,9 @@ import {context} from "@actions/github"
 import fsp from "@absolunet/fsp"
 import zahl from "zahl"
 import chalk from "chalk"
+import getBooleanInput from "get-boolean-action-input"
 
 import publish from "./publish"
-import getBooleanInput from "./lib/getBooleanInput"
 
 // GitHub Actions CI supports color, chalk just does not know that
 chalk.level = chalk.Level.Ansi256
