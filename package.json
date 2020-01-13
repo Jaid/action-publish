@@ -32,5 +32,6 @@
     "testOnGithubProd": "name=$(npx package-name-cli) && npm run build-push && cd ../epoch-seconds && release && cd ../$name",
     "prepareActionJest": "npm run build:prod"
   },
-  "description": "GitHub Action that publishes compiled code to npm and similar package registries."
+  "description": "GitHub Action that publishes compiled code to npm and similar package registries.",
+  "funding": "https://github.com/sponsors/jaid"
 }
