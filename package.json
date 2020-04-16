@@ -26,7 +26,7 @@
     "webpack-config-jaid": "^11.8.0"
   },
   "scripts": {
-    "build": "rimraf build && NODE_ENV=production webpack",
+    "build": "rm -rf build && NODE_ENV=production webpack",
     "build-push": "npm run build && git add build && git commit --sign --message 'Rebuilt src/' && git push",
     "testOnGithub": "name=$(npx package-name-cli) && npm run build-push && cd ../test && npm run randomCommit && release && cd ../$name",
     "testOnGithubProd": "name=$(npx package-name-cli) && npm run build-push && cd ../epoch-seconds && release && cd ../$name",
