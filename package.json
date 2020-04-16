@@ -38,5 +38,7 @@
     "type": "git",
     "url": "https://github.com/jaid/action-publish"
   },
-  "name": "action-publish"
+  "name": "action-publish",
+  "homepage": "https://github.com/Jaid/action-publish",
+  "keywords": []
 }
