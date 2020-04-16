@@ -28,7 +28,7 @@
   "scripts": {
     "build": "rm -rf build && NODE_ENV=production webpack",
     "build-push": "npm run build && git add build && git commit --sign --message 'Rebuilt src/' && git push",
-    "testOnGithub": "name=$(npx package-name-cli) && npm run build-push && cd ../test && npm run randomCommit && release && cd ../$name",
+    "testOnGithub": "name=$(package-name-cli) && git-flush-cli 'Testing changes' && npm run buildPush && cd ../test && git pull && echo $(date-now) >> changefile.txt && git-flush-cli \"Random commit for testing action Jaid/$name\" && cd ../$name",
     "testOnGithubProd": "name=$(npx package-name-cli) && npm run build-push && cd ../epoch-seconds && release && cd ../$name",
     "prepareActionJest": "npm run build:prod",
     "buildPush": "npm run build && git add build && git-flush-cli 'Rebuilt src/'"
