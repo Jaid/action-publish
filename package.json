@@ -41,5 +41,19 @@
   },
   "name": "action-publish",
   "homepage": "https://github.com/Jaid/action-publish",
-  "keywords": []
+  "keywords": [
+    "action",
+    "actions",
+    "github",
+    "github-action",
+    "github-actions",
+    "github-api",
+    "github-packages",
+    "node",
+    "node-js",
+    "nodejs",
+    "npm-api",
+    "npm-publish",
+    "publish"
+  ]
 }
