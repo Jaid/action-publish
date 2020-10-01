@@ -1,6 +1,6 @@
-import {exec} from "@actions/exec"
-import {getInput} from "@actions/core"
 import fsp from "@absolunet/fsp"
+import {getInput} from "@actions/core"
+import {exec} from "@actions/exec"
 import chalk from "chalk"
 
 export default async function ({registry, publishDirectory, dry, npmrcFileName, pkgFile}) {
