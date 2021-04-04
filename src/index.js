@@ -1,13 +1,13 @@
-import path from "path"
-
-import {exec} from "@actions/exec"
-import getActionTag from "lib/getActionTag"
-import {getInput, startGroup, endGroup, setFailed} from "@actions/core"
-import {context} from "@actions/github"
 import fsp from "@absolunet/fsp"
-import zahl from "zahl"
+import {endGroup, getInput, setFailed, startGroup} from "@actions/core"
+import {exec} from "@actions/exec"
+import {context} from "@actions/github"
 import chalk from "chalk"
 import getBooleanInput from "get-boolean-action-input"
+import path from "path"
+import zahl from "zahl"
+
+import getActionTag from "lib/getActionTag"
 
 import publish from "./publish"
 
