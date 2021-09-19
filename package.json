@@ -55,5 +55,6 @@
     "npm-api",
     "npm-publish",
     "publish"
-  ]
+  ],
+  "type": "module"
 }
