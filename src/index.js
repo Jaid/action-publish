@@ -6,7 +6,7 @@ import {exec} from "@actions/exec"
 import {context} from "@actions/github"
 import chalk from "chalk"
 import getBooleanInput from "./lib/esm/get-boolean-action-input.js"
-import zahl from "zahl"
+import zahl from "./lib/esm/zahl.js"
 
 import getActionTag from "./lib/getActionTag.js"
 import publish from "./publish.js"
