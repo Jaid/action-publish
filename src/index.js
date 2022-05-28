@@ -1,15 +1,15 @@
+import path from "node:path"
+
 import fsp from "@absolunet/fsp"
 import {endGroup, getInput, setFailed, startGroup} from "@actions/core"
 import {exec} from "@actions/exec"
 import {context} from "@actions/github"
 import chalk from "chalk"
 import getBooleanInput from "get-boolean-action-input"
-import path from "path"
 import zahl from "zahl"
 
-import getActionTag from "./lib/getActionTag"
-
-import publish from "./publish"
+import getActionTag from "./lib/getActionTag.js"
+import publish from "./publish.js"
 
 // GitHub Actions CI supports color, chalk just does not know that
 chalk.level = chalk.Level.Ansi256
