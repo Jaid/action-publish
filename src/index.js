@@ -4,15 +4,12 @@ import fsp from "@absolunet/fsp"
 import {endGroup, getInput, setFailed, startGroup} from "@actions/core"
 import {exec} from "@actions/exec"
 import {context} from "@actions/github"
-import chalk from "chalk"
+import chalk from "./lib/chalk.js"
 import getBooleanInput from "./lib/esm/get-boolean-action-input.js"
 import zahl from "./lib/esm/zahl.js"
 
 import getActionTag from "./lib/getActionTag.js"
 import publish from "./publish.js"
-
-// GitHub Actions CI supports color, chalk just does not know that
-chalk.level = chalk.Level.Ansi256
 
 async function main() {
   const tag = getActionTag()
