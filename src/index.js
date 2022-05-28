@@ -5,7 +5,7 @@ import {endGroup, getInput, setFailed, startGroup} from "@actions/core"
 import {exec} from "@actions/exec"
 import {context} from "@actions/github"
 import chalk from "chalk"
-import getBooleanInput from "get-boolean-action-input"
+import getBooleanInput from "./lib/esm/get-boolean-action-input.js"
 import zahl from "zahl"
 
 import getActionTag from "./lib/getActionTag.js"
