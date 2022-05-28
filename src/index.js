@@ -7,7 +7,7 @@ import getBooleanInput from "get-boolean-action-input"
 import path from "path"
 import zahl from "zahl"
 
-import getActionTag from "lib/getActionTag"
+import getActionTag from "./lib/getActionTag"
 
 import publish from "./publish"
 
