@@ -2,7 +2,7 @@ name: Publish Node package
 description: GitHub Action that publishes compiled code to npm and similar package registries.
 author: Jaid
 runs:
-  using: node12
+  using: node16
   main: build/index.js
 inputs:
   npmrcFile:
